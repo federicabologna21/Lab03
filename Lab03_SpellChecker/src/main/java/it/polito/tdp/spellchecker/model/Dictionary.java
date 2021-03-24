@@ -12,6 +12,7 @@ public class Dictionary {
 	
 	public void loadDictionary(String language) {
 		
+	 this.dizionario.clear();
 		if (language.equals("Italian")) {
 			
 			try {

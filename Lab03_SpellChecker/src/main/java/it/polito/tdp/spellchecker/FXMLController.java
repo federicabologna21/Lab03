@@ -53,6 +53,10 @@ public class FXMLController {
     @FXML
     void handleClearText(ActionEvent event) {
     	
+    	txtRisultato.clear();
+    	txtErrori.clear();
+    	txtInserisci.clear();
+    	txtTime.clear();
     	
 
     }
@@ -60,12 +64,17 @@ public class FXMLController {
     @FXML
     void handleSpellCheck(ActionEvent event) {
     	
+    	this.model.loadDictionary(boxLanguage.getValue());
+    	
     	long startTime = System.nanoTime();
     	
     	String inserisci = txtInserisci.getText().toLowerCase();
     	inserisci = inserisci.replaceAll("[.,\\/#!$%?\\^&\\*;:{}=\\-_'()\\[\\]\"]", "");
     	
-    	// --> controllo diverso da null
+    	// controllo diverso da null
+    	if (inserisci == null) {
+    		txtRisultato.setText("Errore, inserire almeno una parola");
+    	}
     	
     	
     	// divido quello che viene passato come parametro
@@ -110,8 +119,7 @@ public class FXMLController {
     
     public void setModel(Dictionary model) {
     	this.model = model;
-    	String languages [] = {"English", "Italian"};
-    	boxLanguage.getItems().addAll(languages);
+    	boxLanguage.getItems().addAll("English", "Italian");
     	// SE adAll è sottolineato andare a cambiare 
     	// nella dichiarazione del box è mettere <String>
     }
