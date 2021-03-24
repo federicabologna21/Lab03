@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import it.polito.tdp.spellchecker.model.Dictionary;
+import it.polito.tdp.spellchecker.model.RichWord;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -64,7 +65,10 @@ public class FXMLController {
     @FXML
     void handleSpellCheck(ActionEvent event) {
     	
-    	this.model.loadDictionary(boxLanguage.getValue());
+    	//------ IMPORTANTE ------
+    	// RICORDA SEMPRE DI INVOCARE I 
+    	// METODI DEL MODEL NEL CONTROLLER
+    	this.model.loadDictionary(boxLanguage.getValue()); 
     	
     	long startTime = System.nanoTime();
     	
@@ -90,7 +94,12 @@ public class FXMLController {
     	
     	
     	List <String> listaFinale = new LinkedList<>();
-    	listaFinale = this.model.controlloParoleSbagliate(this.model.spellCheckText(listaInput));
+    	List<RichWord> paroleS = model.spellCheckTextDichotomic(listaInput);
+    	listaFinale = this.model.controlloParoleSbagliate(paroleS);
+    	
+   //	listaFinale = this.model.spellCheckText(listaInput);
+    	
+    	
     	String risultato ="";
     	for (String s: listaFinale) {
     		risultato += s + "\n";
